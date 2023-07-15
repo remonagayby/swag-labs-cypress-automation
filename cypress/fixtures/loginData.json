@@ -1,0 +1,10 @@
+{
+  "validUsernames": [
+    "standard_user",
+    "performance_glitch_user",
+    "problem_user"
+  ],
+
+  "invalidUsernames": "locked_out_user",
+  "userpassword": "secret_sauce"
+}

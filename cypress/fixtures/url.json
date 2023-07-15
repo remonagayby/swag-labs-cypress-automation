@@ -1,0 +1,8 @@
+{
+    "loginPage": "https://www.saucedemo.com/",
+    "inventoryPage": "https://www.saucedemo.com/inventory.html",
+    "cartPage": "https://www.saucedemo.com/cart.html",
+    "checkOut1Page": "https://www.saucedemo.com/checkout-step-one.html",
+    "checkOut2Page": "https://www.saucedemo.com/checkout-step-two.html",
+    "confirmationPage": "https://www.saucedemo.com/checkout-complete.html"
+}

@@ -6,35 +6,98 @@ beforeEach(() => {
   login.visitSwagLabs()
 })
 
-it('should be able to select random item and go to cart page', () => {
-    login
-        .typeValidUsername()
+describe('Standard User Adding & Removing Items', () => {
+    it('Should be able to select random item and go to cart page as a standard_user', () => {
+        login
+            .typeStandardUsername()
+            .typeValidPassword()
+            .validLoginClick()
+            .assertInventoryPageUrl()
+            .selectRandomItem()
+            .clickCartButton()
+            .assertCartPageUrl()
+            .assertItemsInCart()
+    })
+    
+    it('Should be able to add all items to the cart as a standard_user', () => {
+        login
+            .typeStandardUsername()
+            .typeValidPassword()
+            .validLoginClick()
+            .assertInventoryPageUrl()
+            .selectAllItems()
+            .clickCartButton()
+            .assertCartPageUrl()
+            .assertItemsInCart()
+    })
+    
+    it('Should be able to remove selected item from cart as a standard_user', () => {
+        login
+        .typeStandardUsername()
         .typeValidPassword()
         .validLoginClick()
         .assertInventoryPageUrl()
         .selectRandomItem()
-        .clickCartButton()
-        .assertCartPageUrl()
-        .assertItemsInCart()
+        .removeItem()
+    })
 })
 
-it('Should be able to add all items to the cart', () => {
-    login
-        .typeValidUsername()
+describe('Problem User Adding & Removing Items', () => {
+    it('Should be able to add all items to the cart as a problem_user', () => {
+        login
+            .typeProblemUsername()
+            .typeValidPassword()
+            .validLoginClick()
+            .assertInventoryPageUrl()
+            .selectAllItems()
+            .clickCartButton()
+            .assertCartPageUrl()
+            .assertItemsInCart()
+    })
+    
+    it('Should be able to remove selected item from cart as a problem_user', () => {
+        login
+        .typeProblemUsername()
         .typeValidPassword()
         .validLoginClick()
         .assertInventoryPageUrl()
         .selectAllItems()
-        .clickCartButton()
-        .assertCartPageUrl()
-        .assertItemsInCart()
+        .removeItem() // remove button is not clickable
+    }) 
 })
 
-it('Should be able to remove selected item from cart', () => {
-    login
-    .typeValidUsername()
-    .typeValidPassword()
-    .validLoginClick()
-    .assertInventoryPageUrl()
-    .selectRandomItem()
+describe('Performance Glitch User Adding & Removing Items', () => {
+    it('Should be able to select random item and go to cart page as a performance_glitch_user', () => {
+        login
+            .typePerformanceUsername()
+            .typeValidPassword()
+            .validLoginClick()
+            .assertInventoryPageUrl()
+            .selectRandomItem()
+            .clickCartButton()
+            .assertCartPageUrl()
+            .assertItemsInCart()
+    })
+    
+    it('Should be able to add all items to the cart as a performance_glitch_user', () => {
+        login
+            .typePerformanceUsername()
+            .typeValidPassword()
+            .validLoginClick()
+            .assertInventoryPageUrl()
+            .selectAllItems()
+            .clickCartButton()
+            .assertCartPageUrl()
+            .assertItemsInCart()
+    })
+    
+    it('Should be able to remove selected item from cart as a performance_glitch_user', () => {
+        login
+        .typePerformanceUsername()
+        .typeValidPassword()
+        .validLoginClick()
+        .assertInventoryPageUrl()
+        .selectRandomItem()
+        .removeItem()
+    }) 
 })

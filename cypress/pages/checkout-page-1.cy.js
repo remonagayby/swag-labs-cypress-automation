@@ -96,6 +96,13 @@ class CheckOutPage01 {
     return new CheckOutPage02;
   }
 
+  // click on continue without entering valid data
+  invalidContinue() {
+    this.continueButton.click()
+
+    return this
+  }
+
   // click on calcel button
   clickCancel() {
     this.cancelButton.click();
@@ -107,16 +114,18 @@ class CheckOutPage01 {
   assertErrorMessage() {
     if (this.firstName === "")
       this.errorMessage
-        .should("be.visible")
-        .and("have.text", "Error: First Name is required");
+          .should("be.visible")
+          .and("have.text", "Error: First Name is required");
+
     else if (this.lastName === "")
       this.errorMessage
-        .should("be.visible")
-        .and("eq", "Error: Last Name is required");
+          .should("be.visible")
+          .and("eq", "Error: Last Name is required");
+
     else if (this.postalCode === "")
       this.errorMessage
-        .should("be.visible")
-        .and("eq", "Error: Postal Code is required");
+          .should("be.visible")
+          .and("eq", "Error: Postal Code is required");
 
     return this;
   }

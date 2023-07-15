@@ -43,7 +43,12 @@ class InventoryPage {
             const randomIndex = Math.floor(Math.random() * numItems);
 
             // find the add-to-cart button for the random item and click it
-            this.addToCartButton.eq(randomIndex).click();
+            this.addToCartButton
+                .eq(randomIndex)
+                .click()
+
+            // assert that Add to cart button change to Remove button    
+            this.removeButton.should('have.text', 'Remove')
         }).as('selectedItem')
 
         return this
@@ -54,6 +59,9 @@ class InventoryPage {
         this.addToCartButton.each(button => {
             // wrap the add to cart button to cypress object
             cy.wrap(button).click()
+
+            // assert that Add to cart button change to Remove button    
+            this.removeButton.should('have.text', 'Remove')        
         })
 
         return this
@@ -62,12 +70,15 @@ class InventoryPage {
 
     // remove the selected item added to the cart
     removeItem() {
-        
+        this.removeButton.click()
+        return this
     }
 
     // click on the cart page
     clickCartButton() {
-        this.shoppingCart.click()
+        this.shoppingCart
+            .should('be.visible')
+            .click()
 
         return new CartPage
     }

@@ -27,7 +27,7 @@ class CartPage {
     }
 
     get totalCartItems() {
-        return this.itemsInCart.find('.cart_item').its('length')
+        return this.itemsInCart
     }
 
     // assert cart page url
@@ -69,14 +69,10 @@ class CartPage {
     }
 
     // assert items added to the cart
-    assertItemsInCart() {
-        this.totalCartItems.then(totalItems => {
-            cy.wrap(totalItems).should('eq', totalItems).as('itemsInsideCart');
-        })
-
+    totalCartItems() {
+        this.itemsInCart.find('.cart_item').its('length').as('totalCartItems')
         return this
     }
-
 }
 
 export default CartPage

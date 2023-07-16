@@ -19,7 +19,7 @@ describe('Standard User Shopping Cart', () => {
       .assertCartPageHeader()
       .assertItemsInCart()
       .clickRemoveButton()
-      .assertItemsInCart()
+      .totalCartItems()
   })
 
   it('Should be able to click on checkout button as a standard_user', () => {
@@ -32,7 +32,7 @@ describe('Standard User Shopping Cart', () => {
       .clickCartButton()
       .assertCartPageUrl()
       .assertCartPageHeader()
-      .assertItemsInCart()
+      .totalCartItems()
       .clickCheckout()
   })
 })
@@ -50,7 +50,7 @@ describe('Problem User Shopping Cart', () => {
       .assertCartPageHeader()
       .assertItemsInCart()
       .clickRemoveButton()
-      .assertItemsInCart()
+      .totalCartItems()
   })
 
   it('Should be able to click on checkout button as a problem_user', () => {
@@ -63,7 +63,7 @@ describe('Problem User Shopping Cart', () => {
       .clickCartButton()
       .assertCartPageUrl()
       .assertCartPageHeader()
-      .assertItemsInCart()
+      .totalCartItems()
       .clickCheckout()
   })
 })
@@ -81,7 +81,7 @@ describe('Performance Glitch User Shopping Cart', () => {
       .assertCartPageHeader()
       .assertItemsInCart()
       .clickRemoveButton()
-      .assertItemsInCart()
+      .totalCartItems()
   })
 
   it('Should be able to click on checkout button as a performance_glitch_user', () => {
@@ -94,7 +94,7 @@ describe('Performance Glitch User Shopping Cart', () => {
       .clickCartButton()
       .assertCartPageUrl()
       .assertCartPageHeader()
-      .assertItemsInCart()
+      .totalCartItems()
       .clickCheckout()
   })
 })

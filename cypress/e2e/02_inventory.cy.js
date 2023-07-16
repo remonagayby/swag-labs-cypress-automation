@@ -16,7 +16,7 @@ describe('Standard User Adding & Removing Items', () => {
             .selectRandomItem()
             .clickCartButton()
             .assertCartPageUrl()
-            .assertItemsInCart()
+            .totalCartItems()
     })
 
     it('Should be able to add all items to the cart as a standard_user', () => {
@@ -28,10 +28,10 @@ describe('Standard User Adding & Removing Items', () => {
             .selectAllItems()
             .clickCartButton()
             .assertCartPageUrl()
-            .assertItemsInCart()
+            .totalCartItems()
     })
 
-    it.only('Should be able to remove selected item from cart as a standard_user', () => {
+    it('Should be able to remove selected item from cart as a standard_user', () => {
         login
             .typeStandardUsername()
             .typeValidPassword()
@@ -52,7 +52,7 @@ describe('Problem User Adding & Removing Items', () => {
             .selectAllItems()
             .clickCartButton()
             .assertCartPageUrl()
-            .assertItemsInCart()
+            .totalCartItems()
     })
 
     it('Should be able to remove selected item from cart as a problem_user', () => {
@@ -76,7 +76,7 @@ describe('Performance Glitch User Adding & Removing Items', () => {
             .selectRandomItem()
             .clickCartButton()
             .assertCartPageUrl()
-            .assertItemsInCart()
+            .totalCartItems()
     })
 
     it('Should be able to add all items to the cart as a performance_glitch_user', () => {
@@ -88,7 +88,7 @@ describe('Performance Glitch User Adding & Removing Items', () => {
             .selectAllItems()
             .clickCartButton()
             .assertCartPageUrl()
-            .assertItemsInCart()
+            .totalCartItems()
     })
 
     it('Should be able to remove selected item from cart as a performance_glitch_user', () => {

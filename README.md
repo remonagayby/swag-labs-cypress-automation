@@ -4,7 +4,6 @@ This project contains automated test scripts for Swag Labs Web Application. The 
 
 ## Prerequisites
 
-- Node.js and NPM should be installed on your machine.
 - A code editor of your choice, e.g. Visual Studio Code.
 
 ## Installation
@@ -23,7 +22,7 @@ npm install
 2. Run the following command to open Cypress:
 
 ```bash
-npm run cypress:open
+npm cypress open
 ```
 
 3. Click on the test script you want to run in the Cypress Test Runner.

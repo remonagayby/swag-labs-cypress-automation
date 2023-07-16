@@ -18,11 +18,6 @@ class CheckOutPage02 {
         return cy.get('.cart_list')
     }
 
-    // get items inside the checkout page 2
-    get totalCartItems() {
-        return this.itemsInCart.find('.cart_item')
-    }
-
     // get finish button
     get finishButton() {
         return cy.get('#finish')
@@ -65,8 +60,10 @@ class CheckOutPage02 {
 
     // assert items exist into the checkout page 2
     assertItemsInCheckout() {
-        this.totalCartItems.its('length').then(totalItems => {
-            cy.wrap(totalItems).should('eq', 6);
+        this.itemsInCart.find('.cart_item').its('length').then(totalItems => {
+            cy.get('@totalCartItems').then(totalCartItems => {
+                cy.wrap(totalItems).should('eq', totalCartItems);
+            }) 
         })
 
         return this
@@ -97,13 +94,8 @@ class CheckOutPage02 {
 
     // assert the total items prices before tax 
     assertTotalPrice() {
-
-        this.totalPrice.invoke('text').then(total => {
+        this.totalPrice.its('text').then(total => {
             const totalPrice = parseFloat(total.slice(13))
-            // cy.wrap(this.calculateTotalPrice()).as('beforeTax')
-            // cy.get('@beforeTax').then(total => {
-            //     expect(total).to.eq(totalPrice)
-            // })
             const calculatedPrice = this.calculateTotalPrice();
             expect(calculatedPrice).to.eq(totalPrice)
         })
@@ -131,17 +123,12 @@ class CheckOutPage02 {
             cy.wrap(taxAmount).as('taxAmount')
         })
 
-        // cy.get('@taxAmount').then(tax => {
-
-        // })
-
         return this
     }
 
     // calculate the total items price before tax
     calculateTotalPrice() {
-
-        var totalPrice = 0
+        let totalPrice = 0
         this.totalCartItems.each(itemsText => {
             // get the item price text
             const itemPriceText = itemsText.find('.inventory_item_price').text()
@@ -149,6 +136,7 @@ class CheckOutPage02 {
             // get the item price
             const itemPrice = parseFloat(itemPriceText.slice(1))
             totalPrice += itemPrice
+            
         })
         return totalPrice.toFixed(2)
     }

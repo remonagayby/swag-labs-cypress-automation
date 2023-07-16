@@ -28,8 +28,8 @@ describe('Standard User Checkout', () => {
             // .assertTotalPrice()
             // .assertTax()
             // .assertTotalAfterTax()
-            // .clickFinish()
-            // .assertConfirmationUrl()
+            .clickFinish()
+            .assertConfirmationUrl()
     })
 
     it('should be able to click cancel and return to cart page as a standard_user', () => {

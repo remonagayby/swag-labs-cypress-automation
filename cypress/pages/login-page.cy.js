@@ -76,7 +76,7 @@ class LoginPage {
   // type valid password inside password field
   typeValidPassword() {
     // type the valid password provided in loginData.json
-    cy.fixture("loginData").then(password => {
+    cy.fixture("loginData").then((password) => {
       this.password
         .should("have.attr", "placeholder", "Password")
         .type(password.userpassword)
@@ -111,38 +111,50 @@ class LoginPage {
 
   // assert error message
   assertErrorMessage() {
-    if (this.username === "") 
-        this.errorMessage
-          .should("be.visible")
-          .and("eq", "Epic sadface: Username is required");
+    if (this.username === "")
+      this.errorMessage
+        .should("be.visible")
+        .and("eq", "Epic sadface: Username is required");
     else if (this.password === "")
-        this.errorMessage
-            .should("be.visible")
-            .and("eq", "Epic sadface: Password is required");
-    
-    else if (this.username === '@locked_out_user' && this.password === '@password')
-        this.errorMessage
-            .should("be.visible")
-            .and("eq", "Epic sadface: Sorry, this user has been locked out.");
+      this.errorMessage
+        .should("be.visible")
+        .and("eq", "Epic sadface: Password is required");
+    else if (
+      this.username === "@locked_out_user" &&
+      this.password === "@password"
+    )
+      this.errorMessage
+        .should("be.visible")
+        .and("eq", "Epic sadface: Sorry, this user has been locked out.");
+    else if (this.username === "" && this.password === "@password")
+      this.errorMessage
+        .should("be.visible")
+        .and(
+          "eq",
+          "Epic sadface: Username and password do not match any user in this service"
+        );
 
-    else if (this.username === '' && this.password === '@password')
-        this.errorMessage
-            .should("be.visible")
-            .and("eq", "Epic sadface: Username and password do not match any user in this service");
-    
     return this;
   }
 
   // click on login button with valid credentials to redirect to inventory page
   validLoginClick() {
-    this.loginButton.should("have.value", "Login").click();
+    this.loginButton
+      .should("have.value", "Login")
+      .and("be.visible")
+      .and("be.enabled")
+      .click();
 
     return new InventoryPage();
   }
 
   // click on login button without valid credentials to stay into same page
   invalidLoginClick() {
-    this.loginButton.should("have.value", "Login").click();
+    this.loginButton
+      .should("have.value", "Login")
+      .and("be.visible")
+      .and("be.enabled")
+      .click();
 
     return this;
   }

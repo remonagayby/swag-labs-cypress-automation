@@ -2,7 +2,7 @@ import ConfirmationPage from "./confirmation-page.cy"
 import InventoryPage from "./inventory-page.cy"
 
 class CheckOutPage02 {
-    
+
     // get checkout page 2 url
     get checkoutUrl() {
         return cy.url()
@@ -17,7 +17,7 @@ class CheckOutPage02 {
     get itemsInCart() {
         return cy.get('.cart_list')
     }
-    
+
     // get items inside the checkout page 2
     get totalCartItems() {
         return this.itemsInCart.find('.cart_item')
@@ -54,20 +54,20 @@ class CheckOutPage02 {
             this.checkoutUrl.should('eq', pageUrl.checkOut2Page)
         })
         return this
-    } 
+    }
 
     // assert checkout page 2 header
     assertCheckout2Header() {
         this.pageHeader.should("contain", "Checkout: Overview");
 
-    return this;
-  }
+        return this;
+    }
 
     // assert items exist into the checkout page 2
     assertItemsInCheckout() {
         this.totalCartItems.its('length').then(totalItems => {
             cy.wrap(totalItems).should('eq', 6);
-          })
+        })
 
         return this
     }
@@ -77,6 +77,8 @@ class CheckOutPage02 {
         this.finishButton
             .should('have.css', 'background-color', 'rgb(61, 220, 145)')
             .and('contain', 'Finish')
+            .and('be.visible')
+            .and('be.enabled')
             .click()
 
         return new ConfirmationPage
@@ -86,7 +88,10 @@ class CheckOutPage02 {
     clickCancel() {
         this.cancelButton
             .should('contain', 'Cancel')
-        
+            .and('be.visible')
+            .and('be.enabled')
+
+
         return new InventoryPage
     }
 
@@ -95,10 +100,12 @@ class CheckOutPage02 {
 
         this.totalPrice.invoke('text').then(total => {
             const totalPrice = parseFloat(total.slice(13))
-            cy.wrap(this.calculateTotalPrice()).as('beforeTax')
-            cy.get('@beforeTax').then(total => {
-                expect(total).to.eq(totalPrice)
-            })
+            // cy.wrap(this.calculateTotalPrice()).as('beforeTax')
+            // cy.get('@beforeTax').then(total => {
+            //     expect(total).to.eq(totalPrice)
+            // })
+            const calculatedPrice = this.calculateTotalPrice();
+            expect(calculatedPrice).to.eq(totalPrice)
         })
 
         return this
@@ -120,20 +127,21 @@ class CheckOutPage02 {
     assertTax() {
         this.tax.invoke('text').then(text => {
             const taxAmount = parseFloat(text.slice(6))
+            expect(taxAmount).to.eq(this.calculateTax())
             cy.wrap(taxAmount).as('taxAmount')
         })
 
-        cy.get('@taxAmount').then(tax => {
-            expect(tax).to.eq(this.calculateTax())
-        })
+        // cy.get('@taxAmount').then(tax => {
+
+        // })
 
         return this
     }
 
     // calculate the total items price before tax
     calculateTotalPrice() {
-        
-        let totalPrice = 0
+
+        var totalPrice = 0
         this.totalCartItems.each(itemsText => {
             // get the item price text
             const itemPriceText = itemsText.find('.inventory_item_price').text()
@@ -142,7 +150,7 @@ class CheckOutPage02 {
             const itemPrice = parseFloat(itemPriceText.slice(1))
             totalPrice += itemPrice
         })
-        return totalPrice
+        return totalPrice.toFixed(2)
     }
 
     // calculate total tax amount after adding 8% on the items add to the cart

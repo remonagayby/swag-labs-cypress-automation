@@ -34,24 +34,25 @@ class ConfirmationPage {
     assertConfirmationHeader() {
         this.confirmatioHeader
             .should('have.text', 'Thank you for your order!')
-        
+
         return this
     }
 
     // assert confirmation page text
     assertPageText() {
         this.pageText
-            .should('have.text', 
-                    'Your order has been dispatched, and will arrive just as fast as the pony can get there!')
-        
+            .should('have.text',
+                'Your order has been dispatched, and will arrive just as fast as the pony can get there!')
+
         return this
     }
 
     // click on back home button
     clickBackHome() {
         this.backHomeButton
-            .should('have.css', 'background-color', 'rgb(61, 220, 145)').click()
-        
+            .should('have.css', 'background-color', 'rgb(61, 220, 145)')
+            .click()
+
         return new InventoryPage
     }
 }

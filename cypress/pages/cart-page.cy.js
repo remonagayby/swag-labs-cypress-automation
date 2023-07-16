@@ -4,12 +4,12 @@ class CartPage {
     // get cart page url
     get cartPageUrl() {
         return cy.url()
-    }    
+    }
 
     // get cart page header
     get cartPageHeader() {
         return cy.get('.title')
-    }   
+    }
 
     // get remove button
     get removeButton() {
@@ -36,7 +36,7 @@ class CartPage {
             this.cartPageUrl.should('eq', pageUrl.cartPage)
         })
         return this
-    } 
+    }
 
     // assert cart page header
     assertCartPageHeader() {
@@ -49,6 +49,8 @@ class CartPage {
     clickRemoveButton() {
         this.removeButton
             .should('have.css', 'color', 'rgb(226, 35, 26)')
+            .and('be.visible')
+            .and('be.enabled')
             .click()
 
         return this
@@ -59,8 +61,10 @@ class CartPage {
         this.checkoutButton
             .should('have.attr', 'name', 'checkout')
             .and('have.css', 'background-color', 'rgb(61, 220, 145)')
+            .and('be.visible')
+            .and('be.enabled')
             .click()
-        
+
         return new CheckOutPage01
     }
 
@@ -68,7 +72,7 @@ class CartPage {
     assertItemsInCart() {
         this.totalCartItems.then(totalItems => {
             cy.wrap(totalItems).should('eq', totalItems).as('itemsInsideCart');
-          })
+        })
 
         return this
     }

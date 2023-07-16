@@ -14,7 +14,7 @@ describe('Invalid Login', () => {
       .assertPasswordColor()
       .assertErrorMessage()
   })
-  
+
   it('Should not be able to login with valid name and empty password', () => {
     login
       .typeStandardUsername()
@@ -22,7 +22,7 @@ describe('Invalid Login', () => {
       .assertPasswordColor()
       .assertErrorMessage()
   })
-  
+
   it('Should not be able to login with locked_out_user and valid password', () => {
     login
       .typeLockedUsername()
@@ -30,7 +30,7 @@ describe('Invalid Login', () => {
       .invalidLoginClick()
       .assertErrorMessage()
   })
-  
+
   it('Should not be able to login with valid name and invalid password', () => {
     login
       .typeStandardUsername()
@@ -48,7 +48,7 @@ describe('Valid Login', () => {
       .validLoginClick()
       .assertInventoryPageUrl()
   })
-  
+
   it('Should be able to login with performance username and valid password', () => {
     login
       .typePerformanceUsername()
@@ -56,7 +56,7 @@ describe('Valid Login', () => {
       .validLoginClick()
       .assertInventoryPageUrl()
   })
-  
+
   it('Should be able to login with problem_user and valid password', () => {
     login
       .typeProblemUsername()

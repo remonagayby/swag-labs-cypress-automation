@@ -12,7 +12,7 @@
 // You can read more here:
 // https://on.cypress.io/configuration
 // ***********************************************************
-/// <reference types="Cypress" />
+/// <reference types="Cypress" /> 
 
 // Import commands.js using ES2015 syntax:
 import './commands'

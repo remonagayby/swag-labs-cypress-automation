@@ -1,6 +1,6 @@
-import LoginPage from "../pages/login-page.cy";
+import LoginAssertions from "../assertions/login-assertions.cy"
 
-let login = new LoginPage
+let login = new LoginAssertions
 
 beforeEach(() => {
     login.visitSwagLabs()

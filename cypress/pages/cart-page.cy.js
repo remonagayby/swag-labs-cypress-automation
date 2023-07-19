@@ -1,5 +1,3 @@
-import CheckOutPage01 from "./checkout-page-1.cy"
-
 class CartPage {
     // get cart page url
     get cartPageUrl() {
@@ -28,50 +26,6 @@ class CartPage {
 
     get totalCartItems() {
         return this.itemsInCart
-    }
-
-    // assert cart page url
-    assertCartPageUrl() {
-        cy.fixture('url').then(pageUrl => {
-            this.cartPageUrl.should('eq', pageUrl.cartPage)
-        })
-        return this
-    }
-
-    // assert cart page header
-    assertCartPageHeader() {
-        this.cartPageHeader.should('contain', 'Your Cart')
-
-        return this
-    }
-
-    // click on remove button
-    clickRemoveButton() {
-        this.removeButton
-            .should('have.css', 'color', 'rgb(226, 35, 26)')
-            .and('be.visible')
-            .and('be.enabled')
-            .click()
-
-        return this
-    }
-
-    // click on checkout button
-    clickCheckout() {
-        this.checkoutButton
-            .should('have.attr', 'name', 'checkout')
-            .and('have.css', 'background-color', 'rgb(61, 220, 145)')
-            .and('be.visible')
-            .and('be.enabled')
-            .click()
-
-        return new CheckOutPage01
-    }
-
-    // assert items added to the cart
-    totalCartItems() {
-        this.itemsInCart.find('.cart_item').its('length').as('totalCartItems')
-        return this
     }
 }
 

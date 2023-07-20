@@ -55,12 +55,25 @@ class CheckoutAssertion2 {
 
     // assert the total items prices before tax 
     assertTotalPrice() {
-        checkoutPage02.totalPrice.its('text').then(total => {
+        checkoutPage02.totalPrice.invoke('text').then(total => {
             const totalPrice = parseFloat(total.slice(13))
-            const calculatedPrice = this.calculateTotalPrice();
-            expect(calculatedPrice).to.eq(totalPrice)
-        })
 
+            let itemsTotal = 0
+
+            checkoutPage02.itemsInCart.find('.cart_item').each(itemsText => {
+                // get the item price text
+                const itemPriceText = itemsText.find('.inventory_item_price').text().slice(1)
+
+                // get the item price
+                const itemPrice = parseFloat(itemPriceText)
+                itemsTotal += itemPrice
+                cy.wrap(itemsTotal).as('totalPrice')
+
+            })
+            cy.get('@totalPrice').then(total => {
+                expect(total).to.eq(totalPrice)
+            })
+        })
         return this
     }
 
@@ -85,22 +98,6 @@ class CheckoutAssertion2 {
         })
 
         return this
-    }
-
-    // calculate the total items price before tax
-    calculateTotalPrice() {
-        let totalPrice = 0
-        checkoutPage02.itemsInCart.find('.cart_item').each(itemsText => {
-            // get the item price text
-            const itemPriceText = itemsText.find('.inventory_item_price').text()
-
-            // get the item price
-            const itemPrice = parseFloat(itemPriceText.slice(1))
-            totalPrice += itemPrice
-
-        })
-
-        return totalPrice.toFixed(2)
     }
 
     // calculate total tax amount after adding 8% on the items add to the cart

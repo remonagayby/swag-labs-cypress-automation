@@ -8,6 +8,8 @@ class LoginAssertions {
     // visit swag labs website
     visitSwagLabs() {
         cy.visit("");
+
+        // clear any saved data or caches in the browser
         cy.clearCookies();
         cy.clearLocalStorage();
 
@@ -17,7 +19,8 @@ class LoginAssertions {
     // type standard_user inside username field
     typeStandardUsername() {
         cy.fixture("loginData").then((users) => {
-        loginPage.username
+        loginPage
+            .username
             .should("have.attr", "placeholder", "Username")
             .type(users.validUsernames[0]).as("standard_user");
         });
@@ -27,7 +30,8 @@ class LoginAssertions {
     // type performance_glitch_user username inside username field
     typePerformanceUsername() {
         cy.fixture("loginData").then((users) => {
-        loginPage.username
+        loginPage
+            .username
             .should("have.attr", "placeholder", "Username")
             .type(users.validUsernames[1])
             .as("performance_glitch");
@@ -38,7 +42,8 @@ class LoginAssertions {
     // type locked_out_user username inside username field
     typeLockedUsername() {
         cy.fixture("loginData").then((users) => {
-        loginPage.username
+        loginPage
+            .username
             .should("have.attr", "placeholder", "Username")
             .type(users.invalidUsernames)
             .as("locked_out_user");
@@ -49,7 +54,8 @@ class LoginAssertions {
     // type problem_user username inside username field
     typeProblemUsername() {
         cy.fixture("loginData").then((users) => {
-        loginPage.username
+        loginPage
+            .username
             .should("have.attr", "placeholder", "Username")
             .type(users.validUsernames[2])
             .as("problem_user");
@@ -61,7 +67,8 @@ class LoginAssertions {
     typeValidPassword() {
         // type the valid password provided in loginData.json
         cy.fixture("loginData").then((password) => {
-        loginPage.password
+        loginPage
+            .password
             .should("have.attr", "placeholder", "Password")
             .type(password.userpassword)
             .as("password");
@@ -72,7 +79,8 @@ class LoginAssertions {
     // type invalid password inside password field
     typeInvalidPassword() {
         // create a fake password
-        loginPage.password
+        loginPage
+        .password
         .should("have.attr", "placeholder", "Password")
         .type(faker.internet.password());
 
@@ -81,7 +89,8 @@ class LoginAssertions {
 
     // assert empty username placeholder color
     assertUsernameColor() {
-        loginPage.username
+        loginPage
+            .username
             .should("have.css", "border-bottom-color", "rgb(226, 35, 26)");
 
         return this;
@@ -89,7 +98,8 @@ class LoginAssertions {
 
     // assert empty username placeholder color
     assertPasswordColor() {
-        loginPage.password
+        loginPage
+            .password
             .should("have.css", "border-bottom-color", "rgb(226, 35, 26)");
 
         return this;
@@ -98,22 +108,26 @@ class LoginAssertions {
     // assert error message
     assertErrorMessage() {
         if (loginPage.username === "")
-        loginPage.errorMessage
+        loginPage
+            .errorMessage
             .should("be.visible")
             .and("eq", "Epic sadface: Username is required");
         else if (loginPage.password === "")
-        loginPage.errorMessage
+        loginPage
+            .errorMessage
             .should("be.visible")
             .and("eq", "Epic sadface: Password is required");
         else if (
         loginPage.username === "@locked_out_user" &&
         loginPage.password === "@password"
         )
-        loginPage.errorMessage
+        loginPage
+            .errorMessage
             .should("be.visible")
             .and("eq", "Epic sadface: Sorry, this user has been locked out.");
         else if (loginPage.username === "" && loginPage.password === "@password")
-        loginPage.errorMessage
+        loginPage
+            .errorMessage
             .should("be.visible")
             .and(
             "eq",
@@ -125,7 +139,8 @@ class LoginAssertions {
 
     // click on login button with valid credentials to redirect to inventory page
     validLoginClick() {
-        loginPage.loginButton
+        loginPage
+            .loginButton
             .should("have.value", "Login")
             .and("be.visible")
             .and("be.enabled")
@@ -136,7 +151,8 @@ class LoginAssertions {
 
     // click on login button without valid credentials to stay into same page
     invalidLoginClick() {
-        loginPage.loginButton
+        loginPage
+            .loginButton
             .should("have.value", "Login")
             .and("be.visible")
             .and("be.enabled")

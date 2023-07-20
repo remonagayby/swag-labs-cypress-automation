@@ -1,3 +1,4 @@
+import Random from "../functions/random-functions.cy";
 import InventoryPage from "../pages/inventory-page.cy";
 import CartAssertions from "./cart-assertions.cy";
 
@@ -20,11 +21,11 @@ class InventoryAssertions {
                 .find(".inventory_item")
                 .its("length")
                 .then((numItems) => {
-                    // generate a random index between 0 and numItems - 1
-                    const randomIndex = Math.floor(Math.random() * numItems);
+                    // call Random class to generate a random index between 0 and numItems - 1
+                    let randomIndex = new Random;
     
                     // find the add-to-cart button for the random item and click it
-                    inventoryPage.addToCartButton.eq(randomIndex).click();
+                    inventoryPage.addToCartButton.eq(randomIndex.randomNumber(numItems)).click();
     
                     // assert that Add to cart button change to Remove button
                     inventoryPage.removeButton.should("have.text", "Remove");
@@ -33,6 +34,8 @@ class InventoryAssertions {
     
             return this;
         }
+
+
     
         // select all items
         selectAllItems() {
@@ -49,7 +52,8 @@ class InventoryAssertions {
     
         // remove the selected item added to the cart
         removeItem() {
-            inventoryPage.removeButton
+            inventoryPage
+                .removeButton
                 .should("be.visible")
                 .and("be.enabled")
                 .click();
@@ -58,7 +62,10 @@ class InventoryAssertions {
     
         // click on the cart page
         clickCartButton() {
-            inventoryPage.shoppingCart.should("be.visible").click();
+            inventoryPage
+                .shoppingCart
+                .should("be.visible")
+                .click();
     
             return new CartAssertions();
         }
